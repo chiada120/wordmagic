@@ -336,6 +336,66 @@
   .cloze-nav .nav-dot.active { border-color: var(--accent); color: var(--accent); transform: scale(1.15); }
   .cloze-nav .nav-dot.correct { background: var(--green); border-color: var(--green); color: white; }
   .cloze-nav .nav-dot.wrong   { background: var(--red); border-color: var(--red); color: white; }
+  /* ⭐ 收藏星 */
+  .star-btn {
+    background: transparent; border: 1.5px solid var(--line); border-radius: 50%;
+    width: 36px; height: 36px; font-size: 18px; cursor: pointer;
+    color: var(--ink-soft); padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .star-btn.on { background: #fef3c7; border-color: #f59e0b; color: #f59e0b; }
+  .star-mini { color: #f59e0b; margin-left: 4px; font-size: 13px; }
+  /* 字彙瀏覽器 */
+  .vocab-search {
+    width: 100%; padding: 12px 14px 12px 38px; border-radius: 12px;
+    border: 1.5px solid var(--line); font-size: 15px; font-family: inherit;
+    background: white url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236b6962' stroke-width='2'><circle cx='11' cy='11' r='7'/><path d='m21 21-4.3-4.3'/></svg>") 12px center no-repeat;
+  }
+  .vocab-search:focus { outline: none; border-color: var(--accent); }
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 4px; }
+  .filter-chip {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 999px;
+    padding: 6px 12px; font-size: 12px; font-weight: 700; color: var(--ink-soft);
+    cursor: pointer; font-family: inherit;
+  }
+  .filter-chip.on { background: var(--accent); color: white; border-color: var(--accent); }
+  .vocab-item {
+    background: var(--card); border-radius: 10px; padding: 12px 14px; margin-bottom: 6px;
+    border: 1px solid var(--line); cursor: pointer;
+  }
+  .vocab-item .between { gap: 10px; }
+  .vocab-item .vw { font-weight: 800; font-size: 17px; }
+  .vocab-item .vp { color: var(--ink-soft); font-size: 12px; font-style: italic; margin-right: 4px; }
+  .vocab-item .vz { font-size: 13px; color: var(--ink); }
+  .vocab-item .vstatus { font-size: 11px; color: var(--ink-soft); }
+  /* 熱力圖 */
+  .heatmap {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    margin: 10px 0;
+  }
+  .heat-cell {
+    aspect-ratio: 1; border-radius: 4px; background: var(--line);
+    position: relative;
+  }
+  .heat-cell[data-level="1"] { background: #fde9c6; }
+  .heat-cell[data-level="2"] { background: #fcd28a; }
+  .heat-cell[data-level="3"] { background: #f59e0b; }
+  .heat-cell[data-level="4"] { background: #d97706; }
+  .heat-cell.today { outline: 2px solid var(--accent); }
+  .heatmap-labels {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    font-size: 10px; color: var(--ink-soft); text-align: center; margin-bottom: 4px;
+  }
+  /* Dictionary 自動補資料表單 */
+  .dict-form label {
+    display: block; font-size: 12px; font-weight: 700; color: var(--ink-soft); margin: 10px 0 4px;
+  }
+  .dict-form input, .dict-form textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px;
+    font-size: 14px; font-family: inherit;
+  }
+  .dict-form input:focus, .dict-form textarea:focus { outline: none; border-color: var(--accent); }
+  .dict-form .req { color: var(--red); }
   /* ---------- Settings ---------- */
   .switch {
     display: flex; justify-content: space-between; align-items: center;
@@ -903,19 +963,81 @@ const CLOZE = [
       { num:4, options:["predict","reject","subscribe","prescribe"], answer:0 },
       { num:5, options:["reduce","support","depress","import"], answer:1 }
     ]
+  },
+  {
+    title: "How Bicycles Changed the World",
+    paragraphs: [
+      "When the [1] was first invented in the 1800s, few people [2] just how much it would change daily life. For workers in big cities, it provided cheap, fast [3] to and from work. For women, it offered something even more important: freedom and [4]. They could now travel longer distances without depending on others.",
+      "Today, the bicycle remains one of the most environmentally friendly forms of [5]. In many cities, people are choosing bikes over cars to help reduce air pollution."
+    ],
+    questions: [
+      { num:1, options:["subway","bicycle","automobile","projector"], answer:1 },
+      { num:2, options:["foresaw","overate","disliked","reconsidered"], answer:0 },
+      { num:3, options:["destruction","invention","transportation","expectation"], answer:2 },
+      { num:4, options:["sympathy","information","commitment","independence"], answer:3 },
+      { num:5, options:["communication","transportation","education","emotion"], answer:1 }
+    ]
+  },
+  {
+    title: "The Power of Empathy",
+    paragraphs: [
+      "Empathy is the ability to understand and share the feelings of others. It is [1] from sympathy, which simply means feeling sorry for someone. With empathy, you actually try to step into another person's shoes.",
+      "Studies show that children who develop empathy early tend to do better in school and form stronger friendships. They also learn to [2] their emotions instead of acting on impulse. Teachers and parents can [3] empathy by reading stories together and discussing how characters feel.",
+      "In a world full of [4], empathy may be the [5] of better communication. It reminds us that behind every opinion is a person with their own story."
+    ],
+    questions: [
+      { num:1, options:["similar","different","absent","selfish"], answer:1 },
+      { num:2, options:["identify","reject","ignore","dismiss"], answer:0 },
+      { num:3, options:["interrupt","prevent","encourage","destroy"], answer:2 },
+      { num:4, options:["agreement","disagreements","silence","information"], answer:1 },
+      { num:5, options:["destruction","obstacle","foundation","problem"], answer:2 }
+    ]
+  },
+  {
+    title: "Learning a Language as an Adult",
+    paragraphs: [
+      "Many adults believe it is impossible to learn a new language well, but research suggests otherwise. While children may have an advantage in pronunciation, adults often build [1] faster because they can connect new words to ideas they already know.",
+      "The key is consistent practice. Setting aside even 15 minutes a day to [2] new words, listen to native speakers, and try short conversations can make a big [3]. Many learners also find that watching shows with subtitles helps them [4] real speech patterns.",
+      "Most importantly, don't be afraid to make mistakes. Every mistake is an [5] to learn. With patience and the right strategy, becoming bilingual as an adult is absolutely possible."
+    ],
+    questions: [
+      { num:1, options:["projects","vocabulary","emotions","spectators"], answer:1 },
+      { num:2, options:["reject","review","interrupt","disagree"], answer:1 },
+      { num:3, options:["mistake","difference","destruction","prediction"], answer:1 },
+      { num:4, options:["misunderstand","identify","disagree","dislike"], answer:1 },
+      { num:5, options:["expectation","opportunity","invention","performance"], answer:1 }
+    ]
   }
 ];
 
 /* ============================================================
    MERGE 擴充資料 (data/extra.js) 進核心
+   - 對 ROOTS：欄位層級合併，核心已有的欄位不被覆蓋（保留聯想品質）
+   - 對 WORDS：核心已有的 id 保留（保留聯想/例句），擴充只新增
    ============================================================ */
-if (window.ROOTS_EXTRA) Object.assign(ROOTS, window.ROOTS_EXTRA);
+if (window.ROOTS_EXTRA) {
+  Object.keys(window.ROOTS_EXTRA).forEach(k => {
+    if (!ROOTS[k]) ROOTS[k] = window.ROOTS_EXTRA[k];
+    else {
+      const src = window.ROOTS_EXTRA[k];
+      Object.keys(src).forEach(field => {
+        if (ROOTS[k][field] === undefined) ROOTS[k][field] = src[field];
+      });
+    }
+  });
+}
+// 所有沒寫 type 的視為 "root"
+Object.keys(ROOTS).forEach(k => { if (!ROOTS[k].type) ROOTS[k].type = "root"; });
+
 if (window.WORDS_EXTRA && Array.isArray(window.WORDS_EXTRA)) {
-  // 以 id 去重；新增不存在的；同 id 以擴充版覆蓋
-  const byId = new Map(WORDS.map(w => [w.id, w]));
-  window.WORDS_EXTRA.forEach(w => byId.set(w.id, w));
-  WORDS.length = 0;
-  byId.forEach(w => WORDS.push(w));
+  const existingIds = new Set(WORDS.map(w => w.id));
+  // 同 id 的擴充字，後出現的覆蓋前面（讓 extra.js 內 Section B 蓋掉 Section A）
+  const extraById = new Map();
+  window.WORDS_EXTRA.forEach(w => extraById.set(w.id, w));
+  // 核心 WORDS 不動；擴充中尚未在核心的才推入
+  extraById.forEach((w, id) => {
+    if (!existingIds.has(id)) WORDS.push(w);
+  });
 }
 
 /* ============================================================
@@ -938,7 +1060,9 @@ const defaultState = {
   totalCorrect: 0,
   voiceName: null,    // user-chosen voice (overrides auto-pick)
   wrongbook: {},      // { wordId: {wrongCount, streakCorrect, lastWrong, addedAt} }
-  imported: []        // CSV-imported word objects {id, word, ipa, pos, zh, ...}
+  imported: [],       // CSV/字典匯入的字 {id, word, ipa, pos, zh, ...}
+  starred: {},        // { wordId: timestamp }  使用者手動收藏的字
+  history: {}         // { 'YYYY-MM-DD': { studied:int, correct:int, total:int } }
 };
 
 const WRONGBOOK_GRADUATE = 3;  // 連續答對 N 次自動移出錯題本
@@ -980,6 +1104,7 @@ function checkDay() {
 function recordStudy(n=1) {
   checkDay();
   state.todayCount += n;
+  recordHistory("studied", n);
   // first study of day -> streak update
   if (state.lastStudy !== state.todayDate) {
     const prev = state.lastStudy;
@@ -1015,6 +1140,8 @@ function srsAnswer(id, correct) {
   state.totalAnswered++;
   if (correct) state.totalCorrect++;
   updateWrongbook(id, correct);
+  recordHistory("total", 1);
+  if (correct) recordHistory("correct", 1);
   saveState();
 }
 
@@ -1039,6 +1166,41 @@ function wrongbookEntries() {
     .map(([id, e]) => ({ id, ...e, word: WORDS.find(w => w.id === id) }))
     .filter(x => x.word)
     .sort((a, b) => b.wrongCount - a.wrongCount || b.lastWrong - a.lastWrong);
+}
+
+/* ---- ⭐ 收藏（使用者手動標記） ---- */
+function isStarred(id) { return !!(state.starred && state.starred[id]); }
+function toggleStar(id) {
+  if (!state.starred) state.starred = {};
+  if (state.starred[id]) { delete state.starred[id]; toast("已取消收藏"); }
+  else { state.starred[id] = Date.now(); toast("⭐ 已加入收藏"); }
+  saveState();
+}
+function starredCount() { return Object.keys(state.starred || {}).length; }
+function starredWords() {
+  return Object.entries(state.starred || {})
+    .map(([id, ts]) => ({ ts, word: WORDS.find(w => w.id === id) }))
+    .filter(x => x.word)
+    .sort((a, b) => b.ts - a.ts)
+    .map(x => x.word);
+}
+
+/* ---- 歷史軌跡（每日學習量） ---- */
+function recordHistory(field, n=1) {
+  if (!state.history) state.history = {};
+  const today = todayStr();
+  if (!state.history[today]) state.history[today] = { studied: 0, correct: 0, total: 0 };
+  state.history[today][field] = (state.history[today][field] || 0) + n;
+}
+function historyLastDays(n=30) {
+  const arr = [];
+  const today = new Date();
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date(today); d.setDate(today.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    arr.push({ date: key, ...(state.history?.[key] || { studied: 0, correct: 0, total: 0 }) });
+  }
+  return arr;
 }
 function dueWords() {
   const now = Date.now();
@@ -1150,12 +1312,82 @@ function toast(msg, ms=1600) {
   setTimeout(()=>el.classList.remove("show"), ms);
 }
 
-/* split a word to highlight root */
-function highlightRoot(word, rootMatch) {
-  if (!rootMatch) return escapeHTML(word);
-  const i = word.toLowerCase().indexOf(rootMatch);
-  if (i < 0) return escapeHTML(word);
-  return escapeHTML(word.slice(0,i)) + "<b>" + escapeHTML(word.slice(i, i+rootMatch.length)) + "</b>" + escapeHTML(word.slice(i+rootMatch.length));
+/* 把詞綴的原始字串展開成所有變體（去括號註解、依 / 或 , 分隔、只保留 a-z）：
+   "-al² (noun)"           → ["al"]
+   "in-/im-/il-/ir-"       → ["in","im","il","ir"]
+   "em-, en-"              → ["em","en"]
+   "-er / -or"             → ["er","or"]
+   "scrib/script"          → ["scrib","script"]                                 */
+function affixVariants(s) {
+  if (!s) return [];
+  return String(s).toLowerCase()
+    .replace(/\([^)]*\)/g, "")
+    .split(/[\/,]/)
+    .map(v => v.replace(/[^a-z]/g, ""))
+    .filter(Boolean);
+}
+/* 取得單字在 ROOTS 中對應詞綴族的所有變體（優先 root.affix，否則用 rootMatch / root slug） */
+function rootHighlightVariants(w) {
+  const root = (ROOTS && w && w.root) ? ROOTS[w.root] : null;
+  if (root && root.affix) return affixVariants(root.affix);
+  return affixVariants(w?.rootMatch || w?.root);
+}
+/* 選出實際出現在 w.word 裡的那個變體（讓不同變體的詞 — immoral / inactive / illegal 都能對） */
+function rootHighlightKey(w) {
+  const variants = rootHighlightVariants(w);
+  if (!variants.length || !w?.word) return variants[0] || "";
+  const wlow = w.word.toLowerCase();
+  for (const v of variants) if (wlow.indexOf(v) >= 0) return v;
+  return variants[0];
+}
+/* 顯示時把字根/字首/字尾部分粗體標起來 */
+function highlightRoot(w) {
+  if (!w || !w.word) return "";
+  const variants = rootHighlightVariants(w);
+  const wlow = w.word.toLowerCase();
+  for (const v of variants) {
+    const i = wlow.indexOf(v);
+    if (i >= 0) {
+      return escapeHTML(w.word.slice(0,i)) + "<b>" + escapeHTML(w.word.slice(i, i+v.length)) + "</b>" + escapeHTML(w.word.slice(i+v.length));
+    }
+  }
+  return escapeHTML(w.word);
+}
+/* Tier 2 基本字沒有 parts 時，依詞綴族 + 單字位置自動拆分 */
+function autoBreakdownParts(w) {
+  if (!w || !w.root) return null;
+  const root = ROOTS[w.root]; if (!root) return null;
+  const key = rootHighlightKey(w); if (!key) return null;
+  const idx = w.word.toLowerCase().indexOf(key);
+  if (idx < 0) return null;
+  // use matched variant length (key) for slicing
+  const matchLen = key.length;
+  // 中譯取最短形式（去掉「，」、「、」、「，」之後的多餘字）
+  const zhShort = ((root.zh || "").split(/[，、,；;]/)[0] || "").trim().slice(0, 6);
+  const before = w.word.slice(0, idx);
+  const matched = w.word.slice(idx, idx + key.length);
+  const after = w.word.slice(idx + key.length);
+  const type = root.type || "root";
+  const parts = [];
+  if (type === "prefix") {
+    parts.push({ p: matched, m: zhShort });
+    if (after) parts.push({ p: after, m: "" });
+  } else if (type === "suffix") {
+    if (before) parts.push({ p: before, m: "" });
+    parts.push({ p: matched, m: zhShort });
+  } else {
+    if (before) parts.push({ p: before, m: "" });
+    parts.push({ p: matched, m: zhShort });
+    if (after) parts.push({ p: after, m: "" });
+  }
+  return parts.length > 1 ? parts : null;
+}
+function autoFlowText(w) {
+  if (!w || !w.zh) return null;
+  const root = ROOTS[w.root]; if (!root) return null;
+  const zh = ((root.zh || "").split(/[，、,；;]/)[0] || "").trim().slice(0, 8);
+  if (!zh) return null;
+  return zh + " → " + w.zh;
 }
 function highlightInSentence(sentence, hi) {
   if (!hi) return escapeHTML(sentence);
@@ -1187,6 +1419,7 @@ function go(tab, ...args) {
     case "cloze":    renderCloze(v, args[0]); break;
     case "review":   renderReview(v); break;
     case "wrong":    renderWrongbook(v); break;
+    case "vocab":    renderVocab(v, args[0]); break;
     case "settings": renderSettings(v); afterSettingsRender(); break;
   }
   window.scrollTo(0,0);
@@ -1252,40 +1485,69 @@ function renderHome(v) {
       </button>
     </div>
 
-    <div class="card" style="margin-top:14px;">
-      <h3>📚 字彙庫</h3>
-      <div class="muted">總共 ${totalWords} 個字 · ${filteredWords().length} 個符合目前難度範圍</div>
+    <div class="card" style="margin-top:14px;cursor:pointer;" onclick="go('vocab')">
+      <div class="between">
+        <h3 style="margin:0;">📚 字彙庫 ›</h3>
+        <div class="muted" style="font-size:12px;">點開瀏覽 / 搜尋</div>
+      </div>
+      <div class="muted" style="margin-top:4px;">總共 ${totalWords} 個字 · 你已收藏 ⭐ ${starredCount()} 個</div>
     </div>
   `;
 }
 
-/* -------- Roots list -------- */
+/* -------- Roots list — 依字首/字根/字尾分組顯示 -------- */
+let rootsFilter = "all";  // all | prefix | root | suffix
 function renderRoots(v) {
   const wordsByRoot = {};
   WORDS.forEach(w => {
     (wordsByRoot[w.root] = wordsByRoot[w.root] || []).push(w);
   });
+  const counts = { prefix: 0, root: 0, suffix: 0 };
+  Object.keys(ROOTS).forEach(k => { counts[ROOTS[k].type || "root"]++; });
+
+  const tabBtn = (key, label, n) => `
+    <button class="lvl-btn ${rootsFilter===key?'on':''}" onclick="rootsFilter='${key}';renderRoots(document.getElementById('view'))" style="padding:8px 10px;">
+      ${label}<span style="opacity:.7;margin-left:4px;">${n}</span>
+    </button>`;
+
   let html = `
     <div class="card">
-      <h2>🌱 字根學習</h2>
+      <h2 style="margin-bottom:8px;">🌱 字根學習</h2>
       <div class="muted">記住字根，數十個單字一次掌握</div>
+      <div class="lvl-grid" style="grid-template-columns:repeat(4,1fr);margin-top:12px;">
+        ${tabBtn("all","全部", counts.prefix+counts.root+counts.suffix)}
+        ${tabBtn("prefix","字首", counts.prefix)}
+        ${tabBtn("root","字根", counts.root)}
+        ${tabBtn("suffix","字尾", counts.suffix)}
+      </div>
     </div>
   `;
-  for (const root in ROOTS) {
-    const meta = ROOTS[root];
-    const list = wordsByRoot[root] || [];
-    html += `
-      <div class="card root-card" onclick="go('roots','${root}')">
-        <div class="between">
-          <div>
-            <div class="rt">${root}</div>
-            <div class="eq">= ${meta.meaning} ${meta.zh}</div>
+
+  const sections = rootsFilter === "all"
+    ? [["prefix","字首 Prefix"], ["root","字根 Root"], ["suffix","字尾 Suffix"]]
+    : [[rootsFilter, {prefix:"字首 Prefix", root:"字根 Root", suffix:"字尾 Suffix"}[rootsFilter]]];
+
+  for (const [type, label] of sections) {
+    const keys = Object.keys(ROOTS).filter(k => (ROOTS[k].type || "root") === type);
+    if (!keys.length) continue;
+    html += `<div style="margin:18px 4px 8px;font-weight:800;color:var(--ink-soft);font-size:13px;">${label}（${keys.length}）</div>`;
+    for (const root of keys) {
+      const meta = ROOTS[root];
+      const list = wordsByRoot[root] || [];
+      const display = meta.affix || root;
+      html += `
+        <div class="card root-card" onclick="go('roots','${root}')">
+          <div class="between">
+            <div>
+              <div class="rt">${escapeHTML(display)}</div>
+              <div class="eq">= ${escapeHTML(meta.meaning||"")} ${meta.zh?'（'+escapeHTML(meta.zh)+'）':''}</div>
+            </div>
+            <div class="muted">${list.length} 字 ›</div>
           </div>
-          <div class="muted">${list.length} 字 ›</div>
+          ${list.length ? `<div class="lst">${list.slice(0,10).map(w => escapeHTML(w.word)).join("、")}${list.length>10?'…':''}</div>` : ''}
         </div>
-        <div class="lst">${list.map(w => w.word).join("、")}</div>
-      </div>
-    `;
+      `;
+    }
   }
   v.innerHTML = html;
 }
@@ -1294,12 +1556,15 @@ function renderRoots(v) {
 function renderRootDetail(v, root) {
   const meta = ROOTS[root]; if (!meta) return go("roots");
   const list = WORDS.filter(w => w.root === root);
+  const display = meta.affix || root;
+  const typeLabel = { prefix:"字首 Prefix", root:"字根 Root", suffix:"字尾 Suffix" }[meta.type || "root"];
   let html = `
     <div class="card">
       <button class="ghost" onclick="go('roots')">‹ 回字根列表</button>
       <div style="margin-top:14px;">
-        <div style="font-size:34px; font-weight:800; color:var(--accent);">${root}</div>
-        <div style="color:var(--ink-soft);">= ${meta.meaning} ${meta.zh}</div>
+        <div style="font-size:12px;color:var(--ink-soft);font-weight:700;">${typeLabel}</div>
+        <div style="font-size:34px; font-weight:800; color:var(--accent);">${escapeHTML(display)}</div>
+        <div style="color:var(--ink-soft);">= ${escapeHTML(meta.meaning||"")} ${meta.zh?'（'+escapeHTML(meta.zh)+'）':''}</div>
       </div>
     </div>
     <div class="card">
@@ -1317,9 +1582,10 @@ function renderRootDetail(v, root) {
 // 把 parts 陣列轉成 "[chip] + [chip] + [chip]" 視覺
 function renderPartsLine(parts, rootKey) {
   if (!parts || !parts.length) return "";
+  const key = (rootKey || "").toLowerCase();
   return `<div class="parts-line">` + parts.map((p, i) => {
-    const isRoot = p.p.toLowerCase() === (rootKey || "").toLowerCase()
-                || (p.p.toLowerCase().startsWith(rootKey || "") && (rootKey || "").length >= 3);
+    const pl = p.p.toLowerCase();
+    const isRoot = pl === key || (key.length >= 3 && pl.startsWith(key));
     return (i > 0 ? `<span class="plus">+</span>` : "") +
       `<span class="chip${isRoot?" root":""}"><span class="pt">${escapeHTML(p.p)}</span>${p.m?`<span class="mn">${escapeHTML(p.m)}</span>`:""}</span>`;
   }).join("") + `</div>`;
@@ -1333,12 +1599,17 @@ function renderRelated(w) {
   return rows.length ? `<div class="rel-block">${rows.join("")}</div>` : "";
 }
 function renderThinkBox(w) {
-  if (!w.parts && !w.syn && !w.ant && !w.drv && !w.confuse) return "";
+  // 優先使用人工拆字；若無，依詞綴族自動拆解
+  const parts = w.parts || autoBreakdownParts(w);
+  const flow  = w.flow  || autoFlowText(w);
+  if (!parts && !flow && !w.syn && !w.ant && !w.drv && !w.confuse) return "";
+  const isAuto = !w.parts && parts;
+  const highlightKey = rootHighlightKey(w);
   return `
     <div class="think">
-      <div class="think-title">💡 聯想記憶</div>
-      ${renderPartsLine(w.parts, w.root)}
-      ${w.flow ? `<div class="flow-line"><span class="flow-arrow">→</span>${escapeHTML(w.flow).replace(/→/g,'<span class="flow-arrow">→</span>')}</div>` : ""}
+      <div class="think-title">💡 字根聯想${isAuto ? '<span style="font-weight:600;color:var(--ink-soft);font-size:10px;margin-left:6px;">自動拆解</span>' : ''}</div>
+      ${parts ? renderPartsLine(parts, highlightKey) : ""}
+      ${flow ? `<div class="flow-line"><span class="flow-arrow">→</span>${escapeHTML(flow).replace(/→/g,'<span class="flow-arrow">→</span>')}</div>` : ""}
       ${renderRelated(w)}
     </div>
   `;
@@ -1349,7 +1620,7 @@ function renderEntry(w) {
   return `
     <div class="entry">
       <div class="between">
-        <div class="word">${highlightRoot(w.word, w.rootMatch)}${crown}
+        <div class="word">${highlightRoot(w)}${crown}
           <span class="ipa">${escapeHTML(w.ipa)}</span></div>
         <button class="icon" onclick="event.stopPropagation();speak('${w.word}')">🔊</button>
       </div>
@@ -1381,11 +1652,13 @@ function renderCards(v, rootFilter) {
         <h2 style="margin:0;">📇 單字卡</h2>
         <div style="font-size:15px;color:var(--ink-soft);font-weight:600;" id="fcProgress"></div>
       </div>
+      <div class="muted" style="font-size:12px;margin-top:4px;">點卡片翻面 · 點 ⭐ 收藏 · 答題請用字彙題或段落填空</div>
       <div id="fcSubtitleWrap"></div>
       <div class="fc-wrap"><div class="fc" id="fc"></div></div>
       <div class="fc actions" style="margin-top:14px;">
-        <button class="ghost" onclick="fcGrade(false)">😓 還不熟</button>
-        <button class="primary" onclick="fcGrade(true)">😊 記住了</button>
+        <button class="ghost" onclick="fcPrev()" style="flex:0 0 auto;width:60px;">←</button>
+        <button class="primary" onclick="fcNext()" style="flex:1;">下一張 →</button>
+        <button class="star-btn" id="fcStar" onclick="fcToggleStar()" style="flex:0 0 auto;">☆</button>
       </div>
     </div>
   `;
@@ -1401,8 +1674,16 @@ function drawCard() {
   }
   const w = fcDeck[fcIdx];
   document.getElementById("fcProgress").textContent = `${fcIdx+1} / ${fcDeck.length}`;
+  const rootMeta = ROOTS[w.root] || {};
   document.getElementById("fcSubtitleWrap").innerHTML =
-    `<span class="fc-subtitle">字根 <b>${w.root}</b> = ${ROOTS[w.root].meaning}（${ROOTS[w.root].zh}）</span>`;
+    `<span class="fc-subtitle">字根 <b>${w.root}</b> = ${rootMeta.meaning||""}（${rootMeta.zh||""}）</span>`;
+  // 同步星號按鈕
+  const star = document.getElementById("fcStar");
+  if (star) {
+    const on = isStarred(w.id);
+    star.classList.toggle("on", on);
+    star.textContent = on ? "★" : "☆";
+  }
   const fc = document.getElementById("fc");
   fc.classList.remove("flip");
   const crown = w.freq ? `<span class="crown">👑</span>` : "";
@@ -1413,7 +1694,7 @@ function drawCard() {
         <button class="icon" onclick="event.stopPropagation();speak('${w.word}')">🔊</button>
       </div>
       <div class="big">
-        <div class="w">${highlightRoot(w.word, w.rootMatch)}${crown}</div>
+        <div class="w">${highlightRoot(w)}${crown}</div>
         <div class="ip">${escapeHTML(w.ipa)}</div>
         <div class="hint">👆 點卡片看中文意思</div>
       </div>
@@ -1432,12 +1713,23 @@ function drawCard() {
     </div>
   `;
 }
-function fcGrade(correct) {
-  const w = fcDeck[fcIdx];
-  srsAnswer(w.id, correct);
+function fcNext() {
   recordStudy(1);
   fcIdx++;
   drawCard();
+}
+function fcPrev() {
+  if (fcIdx > 0) { fcIdx--; drawCard(); }
+}
+function fcToggleStar() {
+  if (!fcDeck[fcIdx]) return;
+  toggleStar(fcDeck[fcIdx].id);
+  const btn = document.getElementById("fcStar");
+  if (btn) {
+    const on = isStarred(fcDeck[fcIdx].id);
+    btn.classList.toggle("on", on);
+    btn.textContent = on ? "★" : "☆";
+  }
 }
 
 /* -------- Quiz (字彙題 MCQ) — 回合制，不重複 -------- */
@@ -1851,19 +2143,40 @@ let rvDeck = [], rvIdx = 0;
 function renderReview(v) {
   rvDeck = dueWords();
   if (rvDeck.length === 0) {
-    v.innerHTML = emptyHTML("📭 沒有待複習單字", "回單字卡學新字累積複習庫", [
-      {label:"去單字卡", action:"go('cards')"}
-    ]);
+    v.innerHTML = `
+      <div class="card" style="background:#fff7ed;border:1.5px solid var(--accent-soft);">
+        <h2 style="margin:0 0 6px;">🔁 智慧複習</h2>
+        <div style="font-size:13px;color:var(--ink);line-height:1.7;">
+          這裡是你在<b>字彙題</b>或<b>段落填空</b>中答過題的字，系統依「間隔重複法」幫你安排複習頻率：
+          <br>答對 → 間隔變長（1 天 → 2 → 4 → 7 → 14 天）；答錯 → 從頭再來。
+        </div>
+      </div>
+      <div class="card empty">
+        <div class="em">📭</div>
+        <div style="font-weight:700;margin-bottom:6px;">今天沒有該複習的字</div>
+        <div class="muted">先去字彙題或段落填空練幾題，答過的字才會排進複習序列</div>
+        <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button class="primary" onclick="go('quiz')">去字彙題</button>
+          <button class="ghost" onclick="go('cloze')">去段落填空</button>
+        </div>
+      </div>
+    `;
     return;
   }
   rvDeck = shuffle(rvDeck); rvIdx = 0;
   v.innerHTML = `
+    <div class="card" style="background:#fff7ed;border:1.5px solid var(--accent-soft);">
+      <h2 style="margin:0 0 6px;">🔁 智慧複習</h2>
+      <div style="font-size:13px;color:var(--ink);line-height:1.7;">
+        這裡是你在<b>字彙題</b>或<b>段落填空</b>中答過題的字，系統依「間隔重複法」幫你安排複習頻率：
+        <br>答對 → 間隔變長（1 天 → 2 → 4 → 7 → 14 天）；答錯 → 從頭再來。
+      </div>
+    </div>
     <div class="card">
       <div class="between">
-        <h2 style="margin:0;">🔁 間隔複習</h2>
-        <div class="muted" id="rvProgress"></div>
+        <h3 style="margin:0;">今日該複習</h3>
+        <div style="font-size:15px;color:var(--accent);font-weight:700;" id="rvProgress"></div>
       </div>
-      <div class="muted">系統依 Leitner 五格法安排複習頻率</div>
       <div id="rvBody"></div>
     </div>
   `;
@@ -2007,6 +2320,236 @@ function startWrongbookCards() {
   drawCard();
 }
 
+/* -------- 字彙瀏覽器 (Vocab Browser) -------- */
+let vocabState = { q: "", filter: "all", limit: 50 };
+
+function renderVocab(v, args) {
+  // 從 home 點 ⭐ 收藏可以帶 'starred' 進來
+  if (args === "starred") vocabState.filter = "starred";
+  // Shell 只渲染一次：搜尋框不會被重畫，故不會失焦
+  v.innerHTML = `
+    <div class="card">
+      <h2 style="margin:0 0 8px;">📚 字彙庫</h2>
+      <input class="vocab-search" id="vocabQ" type="text" placeholder="搜尋英文、中譯或字根…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      <div class="chip-row" id="vocabChips"></div>
+      <div class="muted" id="vocabCount" style="font-size:12px;margin-top:4px;"></div>
+    </div>
+    <div id="vocabBody"></div>
+  `;
+  const inp = document.getElementById("vocabQ");
+  inp.value = vocabState.q || "";
+  inp.addEventListener("input", () => {
+    vocabState.q = inp.value;
+    vocabState.limit = 50;
+    clearTimeout(window._vqTmr);
+    window._vqTmr = setTimeout(updateVocabResults, 120);
+  });
+  // 自動聚焦並把游標移到尾端
+  setTimeout(() => { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }, 60);
+  updateVocabResults();
+}
+
+function updateVocabResults() {
+  const f = vocabState.filter;
+  const q = (vocabState.q || "").trim().toLowerCase();
+
+  let pool = WORDS.slice();
+  if (f === "starred") pool = pool.filter(w => isStarred(w.id));
+  else if (f === "wrong") pool = pool.filter(w => state.wrongbook && state.wrongbook[w.id]);
+  else if (f === "mastered") pool = pool.filter(w => state.mastered && state.mastered[w.id]);
+  else if (f === "imported") pool = pool.filter(w => w.imported);
+  else if (f === "rich") pool = pool.filter(w => w.parts);
+  if (q) pool = pool.filter(w =>
+    w.word.toLowerCase().includes(q) ||
+    (w.zh || "").toLowerCase().includes(q) ||
+    (w.root || "").toLowerCase().includes(q)
+  );
+  pool.sort((a, b) => a.word.localeCompare(b.word));
+
+  // chips（單獨更新，input 不動）
+  const counts = {
+    all: WORDS.length, starred: starredCount(), wrong: wrongbookCount(),
+    mastered: Object.keys(state.mastered||{}).length,
+    rich: WORDS.filter(w => w.parts).length,
+    imported: WORDS.filter(w => w.imported).length
+  };
+  const chip = (k, label) => `<button class="filter-chip ${f===k?'on':''}" onclick="vocabState.filter='${k}';vocabState.limit=50;updateVocabResults()">${label}<span style="margin-left:4px;opacity:.7;">${counts[k]||0}</span></button>`;
+  const chipsEl = document.getElementById("vocabChips");
+  if (chipsEl) chipsEl.innerHTML = chip("all","全部") + chip("starred","⭐ 收藏") + chip("wrong","❌ 錯題") + chip("mastered","✅ 熟練") + chip("rich","💡 含聯想") + chip("imported","📥 匯入");
+  const cntEl = document.getElementById("vocabCount");
+  if (cntEl) cntEl.textContent = `${pool.length} 個符合${vocabState.limit < pool.length ? ` · 顯示前 ${vocabState.limit} 個` : ''}`;
+
+  const body = document.getElementById("vocabBody");
+  if (!body) return;
+  if (pool.length === 0 && q) {
+    body.innerHTML = `
+      <div class="card empty">
+        <div class="em">📭</div>
+        <div style="font-weight:700;margin-bottom:6px;">字彙庫中沒有「${escapeHTML(q)}」</div>
+        <div class="muted" style="margin-bottom:14px;">用線上字典自動抓 IPA / 詞性 / 例句 / 同反義，你只要補中文翻譯就好</div>
+        <button class="primary" onclick="dictLookup('${escapeHTML(q).replace(/'/g, "\\'")}')">🔍 從字典自動加入「${escapeHTML(q)}」</button>
+      </div>
+    `;
+    return;
+  }
+  const list = pool.slice(0, vocabState.limit).map(w => {
+    const sym = [];
+    if (isStarred(w.id)) sym.push("⭐");
+    if (state.mastered[w.id]) sym.push("✅");
+    if (state.wrongbook[w.id]) sym.push("❌");
+    if (w.imported) sym.push("📥");
+    return `
+      <div class="vocab-item" onclick="toggleVocabItem('${w.id}', this)">
+        <div class="between">
+          <div style="flex:1;min-width:0;">
+            <div class="vw">${escapeHTML(w.word)}${w.freq?'<span class="crown">👑</span>':''}${sym.length?'<span class="star-mini" style="margin-left:6px;color:var(--ink-soft);font-size:12px;">'+sym.join(" ")+'</span>':''}</div>
+            <div class="vz"><span class="vp">${escapeHTML(w.pos||"")}</span>${escapeHTML(w.zh||"")}</div>
+          </div>
+          <button class="star-btn ${isStarred(w.id)?'on':''}" onclick="event.stopPropagation();toggleStarUI(this, '${w.id}')" style="width:32px;height:32px;font-size:15px;">${isStarred(w.id)?'★':'☆'}</button>
+        </div>
+        <div class="vocab-detail" id="vd-${w.id}" style="display:none;"></div>
+      </div>
+    `;
+  }).join("");
+  body.innerHTML = `
+    <div class="card" style="padding:10px;">${list || '<div class="muted" style="text-align:center;padding:20px;">沒有符合的字</div>'}</div>
+    ${pool.length > vocabState.limit ? `<div class="card" style="text-align:center;"><button class="ghost" onclick="vocabState.limit+=50;updateVocabResults()">載入更多 (還有 ${pool.length - vocabState.limit} 個)</button></div>` : ''}
+  `;
+}
+
+function toggleVocabItem(id, el) {
+  const w = WORDS.find(x => x.id === id); if (!w) return;
+  const det = el.querySelector(".vocab-detail");
+  if (det.style.display !== "none") { det.style.display = "none"; det.innerHTML = ""; return; }
+  det.style.display = "block";
+  det.innerHTML = `
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line);">
+      <div style="color:var(--ink-soft);font-size:13px;margin-bottom:4px;">${escapeHTML(w.ipa||"")}
+        <button class="icon" style="margin-left:6px;width:28px;height:28px;font-size:13px;" onclick="event.stopPropagation();speak('${w.word}')">🔊</button>
+      </div>
+      ${w.ex ? `<div style="font-size:14px;margin-top:6px;">${highlightInSentence(w.ex, w.exHi)}</div>
+                <div class="ex-zh" style="font-size:12px;">${escapeHTML(w.exZh||"")}</div>` : ""}
+      ${w.collo ? `<div style="margin-top:6px;"><span class="collo">搭配詞</span>${escapeHTML(w.collo)} <span class="ex-zh">${escapeHTML(w.colloZh||"")}</span></div>` : ""}
+      ${renderThinkBox(w)}
+    </div>
+  `;
+}
+
+function toggleStarUI(btn, id) {
+  toggleStar(id);
+  const on = isStarred(id);
+  btn.classList.toggle("on", on);
+  btn.textContent = on ? "★" : "☆";
+}
+
+/* -------- 字典自動補完 (Free Dictionary API) -------- */
+async function dictLookup(word) {
+  const v = document.getElementById("view");
+  v.innerHTML = `
+    <div class="card" style="text-align:center;padding:30px;">
+      <div style="font-size:32px;margin-bottom:8px;">🔍</div>
+      <div style="font-weight:700;">正在查詢「${escapeHTML(word)}」…</div>
+      <div class="muted" style="margin-top:4px;">向線上字典抓資料中</div>
+    </div>
+  `;
+  try {
+    const resp = await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(word));
+    if (!resp.ok) throw new Error("not found");
+    const data = await resp.json();
+    if (!Array.isArray(data) || !data.length) throw new Error("empty");
+    showDictForm(word, data[0]);
+  } catch (e) {
+    v.innerHTML = `
+      <div class="card empty">
+        <div class="em">😕</div>
+        <div style="font-weight:700;margin-bottom:6px;">線上字典查不到「${escapeHTML(word)}」</div>
+        <div class="muted">這個字可能拼錯或太冷門。你可以手動新增，或回去搜其他字。</div>
+        <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button class="primary" onclick="showDictForm('${escapeHTML(word).replace(/'/g, "\\'")}', null)">手動新增</button>
+          <button class="ghost" onclick="go('vocab')">回字彙庫</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function showDictForm(word, data) {
+  // 從 dictionaryapi 回應抓出最有用的欄位
+  const posMap = { adjective:"adj.", noun:"n.", verb:"v.", adverb:"adv.", pronoun:"pron.", preposition:"prep.", conjunction:"conj.", interjection:"int." };
+  let ipa = "", pos = "n.", ex = "", syn = [], ant = [];
+  if (data) {
+    const ph = (data.phonetics || []).find(p => p.text);
+    ipa = ph?.text || data.phonetic || "";
+    if (ipa && !ipa.startsWith("[") && !ipa.startsWith("/")) ipa = "[" + ipa + "]";
+    const m0 = (data.meanings || [])[0];
+    if (m0) {
+      pos = posMap[m0.partOfSpeech] || (m0.partOfSpeech ? m0.partOfSpeech.slice(0,3) + "." : "n.");
+      const d0 = (m0.definitions || [])[0];
+      if (d0) ex = d0.example || "";
+      syn = (m0.synonyms || []).slice(0, 3);
+      ant = (m0.antonyms || []).slice(0, 3);
+    }
+  }
+  const v = document.getElementById("view");
+  v.innerHTML = `
+    <div class="card">
+      <button class="ghost" onclick="go('vocab')">‹ 回字彙庫</button>
+      <h2 style="margin-top:12px;">📝 新增字到字彙庫</h2>
+      <div class="muted" style="font-size:12px;margin-bottom:14px;">${data ? '✅ 線上字典已幫你填好大部分欄位，補上中文翻譯就能存檔' : '線上字典找不到，請手動填寫'}</div>
+      <div class="dict-form">
+        <label>英文 word <span class="req">*</span></label>
+        <input id="dfWord" value="${escapeHTML(word)}" readonly style="background:#f5f5f5;" />
+        <label>中文翻譯 zh <span class="req">*</span></label>
+        <input id="dfZh" placeholder="例：野心勃勃的" />
+        <label>KK 音標 ipa</label>
+        <input id="dfIpa" value="${escapeHTML(ipa)}" />
+        <label>詞性 pos</label>
+        <input id="dfPos" value="${escapeHTML(pos)}" placeholder="n. / v. / adj. / adv." />
+        <label>例句 ex</label>
+        <textarea id="dfEx" rows="2">${escapeHTML(ex)}</textarea>
+        <label>例句中譯 exZh</label>
+        <textarea id="dfExZh" rows="2"></textarea>
+        ${syn.length ? `<label>線上字典參考 - 同義字</label><div class="muted" style="font-size:13px;">${syn.map(escapeHTML).join("、")}</div>` : ""}
+        ${ant.length ? `<label>線上字典參考 - 反義字</label><div class="muted" style="font-size:13px;">${ant.map(escapeHTML).join("、")}</div>` : ""}
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="primary" onclick="saveDictWord('${escapeHTML(word).replace(/'/g, "\\'")}', ${JSON.stringify({syn,ant}).replace(/"/g, "&quot;")})">儲存到字彙庫</button>
+        <button class="ghost" onclick="go('vocab')">取消</button>
+      </div>
+    </div>
+  `;
+}
+
+function saveDictWord(word, extras) {
+  const zh = document.getElementById("dfZh").value.trim();
+  if (!zh) { toast("請填中文翻譯"); return; }
+  const newWord = {
+    id: "dict_" + word.toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+    word, ipa: document.getElementById("dfIpa").value.trim(),
+    pos: document.getElementById("dfPos").value.trim() || "n.",
+    zh, ex: document.getElementById("dfEx").value.trim(),
+    exHi: word, exZh: document.getElementById("dfExZh").value.trim(),
+    collo: "", colloZh: "",
+    exam: "學測", gept: "中級",
+    root: "", rootMatch: "",
+    syn: extras.syn || [], ant: extras.ant || [],
+    imported: true, fromDict: true
+  };
+  // 不重複加
+  if (WORDS.find(w => w.id === newWord.id)) {
+    toast("這個字已經存在");
+    vocabState.q = word;
+    go("vocab");
+    return;
+  }
+  state.imported = (state.imported || []).concat([newWord]);
+  WORDS.push(newWord);
+  saveState();
+  toast(`✓ 已加入「${word}」`);
+  vocabState.q = word;
+  go("vocab");
+}
+
 /* -------- Settings -------- */
 function renderSettings(v) {
   v.innerHTML = `
@@ -2046,11 +2589,31 @@ function renderSettings(v) {
     </div>
 
     <div class="card">
-      <h3>學習統計</h3>
+      <h3>📈 學習統計</h3>
       <div class="switch"><div>連續學習天數</div><div>🔥 ${state.streak}</div></div>
       <div class="switch"><div>累積熟練單字</div><div>${Object.keys(state.mastered).length}</div></div>
+      <div class="switch"><div>⭐ 收藏字數</div><div>${starredCount()}</div></div>
+      <div class="switch"><div>📕 待克服錯題</div><div>${wrongbookCount()}</div></div>
       <div class="switch"><div>答題次數</div><div>${state.totalAnswered}</div></div>
       <div class="switch"><div>整體正確率</div><div>${state.totalAnswered?Math.round(state.totalCorrect/state.totalAnswered*100):0}%</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🗓️ 學習熱力圖（最近 28 天）</h3>
+      <div class="muted" style="font-size:12px;margin-bottom:10px;">每格代表一天，顏色越深當天學的字越多。<span style="color:var(--accent);font-weight:700;">框線</span>是今天。</div>
+      <div class="heatmap-labels">
+        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+      </div>
+      <div class="heatmap" id="heatmap">${renderHeatmapHTML(28)}</div>
+      <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:8px;font-size:11px;color:var(--ink-soft);">
+        少 <span class="heat-cell" style="width:10px;height:10px;border-radius:2px;"></span>
+        <span class="heat-cell" data-level="1" style="width:10px;height:10px;border-radius:2px;"></span>
+        <span class="heat-cell" data-level="2" style="width:10px;height:10px;border-radius:2px;"></span>
+        <span class="heat-cell" data-level="3" style="width:10px;height:10px;border-radius:2px;"></span>
+        <span class="heat-cell" data-level="4" style="width:10px;height:10px;border-radius:2px;"></span>
+        多
+      </div>
+      ${renderHistoryTrendHTML()}
     </div>
 
     <div class="card">
@@ -2222,6 +2785,42 @@ function downloadCsvTemplate() {
 }
 function afterSettingsRender() {
   renderVoicePicker();
+}
+
+/* ---- 熱力圖渲染 ---- */
+function renderHeatmapHTML(days=28) {
+  const history = historyLastDays(days);
+  // 對齊到週日為第一格：補前面空白
+  const firstDate = new Date(history[0].date);
+  const padStart = firstDate.getDay();   // 0=Sun
+  const cells = [];
+  for (let i = 0; i < padStart; i++) cells.push('<div class="heat-cell" style="background:transparent;"></div>');
+  const today = todayStr();
+  history.forEach(d => {
+    const n = d.studied || 0;
+    const level = n === 0 ? 0 : n < 5 ? 1 : n < 15 ? 2 : n < 30 ? 3 : 4;
+    const isToday = d.date === today ? ' today' : '';
+    const tip = `${d.date} · 學 ${n} 字${d.total?' · 答對 '+d.correct+'/'+d.total:''}`;
+    cells.push(`<div class="heat-cell${isToday}" data-level="${level||''}" title="${tip}"></div>`);
+  });
+  return cells.join("");
+}
+
+function renderHistoryTrendHTML() {
+  const days = historyLastDays(7);
+  const totalStudied = days.reduce((s,d)=>s+(d.studied||0), 0);
+  const totalAnswered = days.reduce((s,d)=>s+(d.total||0), 0);
+  const totalCorrect = days.reduce((s,d)=>s+(d.correct||0), 0);
+  const accuracy = totalAnswered ? Math.round(totalCorrect/totalAnswered*100) : 0;
+  const activeDays = days.filter(d => (d.studied||0) > 0).length;
+  return `
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;">
+      <div style="font-weight:700;margin-bottom:6px;">📊 最近 7 天</div>
+      <div class="muted" style="line-height:1.8;">
+        共學 <b style="color:var(--accent);">${totalStudied}</b> 字 · 答題 <b>${totalAnswered}</b> 次 · 正確率 <b>${accuracy}%</b> · 活躍 <b>${activeDays}</b> 天
+      </div>
+    </div>
+  `;
 }
 function toggleLevel(l) {
   state.levels[l] = !state.levels[l];
